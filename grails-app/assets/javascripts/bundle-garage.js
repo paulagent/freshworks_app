@@ -41480,23 +41480,16 @@ var AddDuckFedForm = function (_React$Component) {
             '  '
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
             null,
-            'Number of ducks'
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'select',
-            { className: 'form-control', name: 'model', value: this.state.model.id,
-              onChange: this.handleModelChange },
-            '  ',
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: null },
-              'Select a Model...'
-            ),
-            this.props.models.map(renderSelectList),
-            '  '
+            'Number of ducks:',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+              name: 'numberOfDucks',
+              type: 'number',
+              value: this.state.numberOfDucks,
+              onChange: this.handleInputChange })
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
