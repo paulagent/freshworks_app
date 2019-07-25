@@ -4,9 +4,9 @@ var path = require('path');
 module.exports = {
   entry: {
 
-    main: './src/main/webapp/App.js',
+    index: './src/main/webapp/index.js',
 
-    garage: './src/main/webapp/app/Garage.js' // <2>
+    feedduck: './src/main/webapp/app/FeedDuck.js' // <2>
   },
   //end::garageEntry[]
   //tag::outputSection[]

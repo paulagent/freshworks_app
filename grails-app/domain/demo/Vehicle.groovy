@@ -8,7 +8,7 @@ class Vehicle {
     String name
 
     Make make
-    Model model
+    Food_Catogary model
 
     static belongsTo = [driver: Driver]
 

@@ -1,26 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Vehicles from './Vehicles';
-import AddDuckFedForm from './AddDuckFedForm';
+import FeedInfo from './FeedInfo';
+import AddDuckFeedForm from './AddDuckFeedForm';
 import 'whatwg-fetch';
 
-class Garage extends React.Component {
+class FeedDuck extends React.Component {
 
   constructor() {
     super();
 
     this.state = {
-      vehicles: [],
+      feedinfo: [],
       makes: [],
-      models: [],
+      food_catogary: [],
       drivers: []
     }
   }
 
   componentDidMount() {
-    fetch('/vehicle')
+    fetch('/feedduckinfo')
       .then(r => r.json())
-      .then(json => this.setState({vehicles: json}))
+      .then(json => this.setState({feedinfo: json}))
       .catch(error => console.error('Error retrieving vehicles: ' + error));
 
     fetch('/make')
@@ -28,9 +28,9 @@ class Garage extends React.Component {
       .then(json => this.setState({makes: json}))
       .catch(error => console.error('Error retrieving makes: ' + error));
 
-    fetch('/model')
+    fetch('/foodcatogary')
       .then(r => r.json())
-      .then(json => this.setState({models: json}))
+      .then(json => this.setState({food_catogary: json}))
       .catch(error => console.error('Error retrieving models ' + error));
 
     fetch('/driver')
@@ -40,31 +40,33 @@ class Garage extends React.Component {
 
   }
 
-  submitNewVehicle = (vehicle) => {
-    console.log('submitNewVehicle...');
-    fetch('/vehicle', {
+  submitNewFeedInfo = (feedinfo) => {
+    console.log('submitNewFeedInfo...');
+    fetch('/feedduckinfo', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(vehicle)
     }).then(r => r.json())
       .then(json => {
-        let vehicles = this.state.vehicles;
+        let feedinfo = this.state.feedinfo;
         vehicles.push({id: json.id, name: json.name, make: json.make, model: json.model, driver: json.driver});
-        this.setState({vehicles});
+        this.setState({feedinfo});
       })
-      .catch(ex => console.error('Unable to save vehicle', ex));
+      .catch(ex => console.error('Unable to save feed info', ex));
   };
 
 
   render() {
-    const {vehicles, makes, models, drivers} = this.state;
+    const {feedinfo, makes, food_catogary, drivers} = this.state;
 
     return <div>
-      <AddDuckFedForm onSubmit={this.submitNewVehicle} makes={makes} models={models} drivers={drivers}/>
-      <Vehicles vehicles={vehicles} />
+      <AddDuckFeedForm onSubmit={this.submitNewFeedInfo} makes={makes} food_catogary={food_catogary} drivers={drivers}/>
+
+
+      <FeedInfo feed={feedinfo} />
     </div>;
   }
 }
 
 
-ReactDOM.render(<Garage />, document.getElementById('garage'));
+ReactDOM.render(<FeedDuck />, document.getElementById('FeedDuck'));

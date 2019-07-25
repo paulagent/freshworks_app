@@ -41347,63 +41347,69 @@ var AddDuckFedForm = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (AddDuckFedForm.__proto__ || Object.getPrototypeOf(AddDuckFedForm)).call(this, props));
 
     _this.handleSubmit = function (event) {
-      // <2>
       event.preventDefault();
 
       var _this$state = _this.state,
-          name = _this$state.name,
-          make = _this$state.make,
-          model = _this$state.model,
-          driver = _this$state.driver;
+          startDate = _this$state.startDate,
+          loc = _this$state.loc,
+          food = _this$state.food,
+          food_category = _this$state.food_category,
+          numberOfDucks = _this$state.numberOfDucks,
+          weightOfFood = _this$state.weightOfFood;
 
 
-      if (!name || !make.id || !model.id || !driver.id) {
+      if (!startDate || !loc || !food || !food_category.id || !numberOfDucks || weightOfFood) {
         console.warn("missing required field!");
         return;
       }
-      _this.props.onSubmit({ name: name, make: make, model: model, driver: driver }); // <3>
-      _this.setState({ name: '', make: { id: '' }, model: { id: '' }, driver: { id: '' } });
+      _this.props.onSubmit({ startDate: startDate, loc: loc, food: food, food_category: food_category, numberOfDucks: numberOfDucks, weightOfFood: weightOfFood }); // <3>
+      _this.setState({ startDate: '', loc: '', food: '', food_category: { id: '' }, numberOfDucks: '', weightOfFood: '' });
     };
 
-    _this.handleNameChange = function (event) {
+    _this.handleLocChange = function (event) {
       //<4>
-      _this.setState({ name: event.target.value });
+      _this.setState({ loc: event.target.value });
     };
 
-    _this.handleMakeChange = function (event) {
+    _this.handleFoodChange = function (event) {
       //<4>
-      _this.setState({ make: { id: event.target.value } });
+      _this.setState({ food: event.target.value });
     };
 
-    _this.handleModelChange = function (event) {
+    _this.handleFoodWeightChange = function (event) {
       //<4>
-      _this.setState({ model: { id: event.target.value } });
+      _this.setState({ weightOfFood: event.target.value });
     };
 
-    _this.handleDriverChange = function (event) {
+    _this.handleFoodCatChange = function (event) {
       //<4>
-      _this.setState({ driver: { id: event.target.value } });
+      _this.setState({ food_category: { id: event.target.value } });
     };
 
-    _this.state = { // <1>
+    _this.handleDuckNumberChange = function (event) {
+      //<4>
+      _this.setState({ numberOfDucks: event.target.value });
+    };
+
+    _this.handleDateChange = function (date) {
+      _this.setState({
+        startDate: date
+      });
+    };
+
+    _this.state = {
       startDate: new Date(),
-      name: '',
-      make: { id: '' },
-      model: { id: '' },
-      driver: { id: '' } };
+      loc: '',
+      food: '',
+      food_category: { id: 1, value: 4 },
+      numberOfDucks: 10,
+      weightOfFood: 0.5
+    };
     return _this;
   }
 
   _createClass(AddDuckFedForm, [{
     key: 'render',
-
-
-    /*handleDateChange = (date) => {
-        this.setState({
-          startDate: date
-        });
-      } ;
-    */
     value: function render() {
 
       function renderSelectList(item) {
@@ -41419,13 +41425,14 @@ var AddDuckFedForm = function (_React$Component) {
         'div',
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'h3',
+          'h1',
           null,
-          'Add a new fed info:'
+          'Add a new Duck fed info:'
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'form',
           { className: 'form form-inline', onSubmit: this.handleSubmit },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
             null,
@@ -41433,33 +41440,31 @@ var AddDuckFedForm = function (_React$Component) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2_react_datepicker__["a" /* default */], {
             selected: this.state.startDate,
-            onChange: this.handleChange
+            name: 'fedtime',
+            onChange: this.handledDateChange,
+            showTimeSelect: true,
+            timeFormat: 'HH:mm',
+            timeIntervals: 15,
+            dateFormat: 'MMMM d, yyyy h:mm aa',
+            timeCaption: 'time'
           }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
             null,
-            'what food fed Duck'
+            'Your location'
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'form-control', name: 'name', type: 'text', value: this.state.name, onChange: this.handleNameChange }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'form-control', name: 'loc', type: 'text', value: this.state.loc, onChange: this.handleLocChange }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
             null,
             'what  of food fed ducks '
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'select',
-            { className: 'form-control', name: 'make', value: this.state.make.id,
-              onChange: this.handleMakeChange },
-            '  ',
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: null },
-              'Select a Make...'
-            ),
-            this.props.makes.map(renderSelectList),
-            '  '
-          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'form-control', name: 'food', type: 'text', value: this.state.food, onChange: this.handleFoodChange }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
@@ -41468,16 +41473,14 @@ var AddDuckFedForm = function (_React$Component) {
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'select',
-            { className: 'form-control', name: 'make', value: this.state.make.id,
-              onChange: this.handleMakeChange },
+            { className: 'form-control', name: 'food_category', value: this.state.food_category.id,
+              onChange: this.handleFoodCatChange },
             '  ',
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'option',
               { value: null },
-              'Select a Make...'
-            ),
-            this.props.makes.map(renderSelectList),
-            '  '
+              'Select a Food Category ...'
+            )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
@@ -41489,28 +41492,21 @@ var AddDuckFedForm = function (_React$Component) {
               name: 'numberOfDucks',
               type: 'number',
               value: this.state.numberOfDucks,
-              onChange: this.handleInputChange })
+              onChange: this.handleDuckNumberChange })
           ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'label',
             null,
-            'how many food fed to ducks'
+            'how many food fed to ducks',
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+              name: 'weightOfFood',
+              type: 'number',
+              value: this.state.weightOfFood,
+              onChange: this.handleFoodWeightChange })
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'select',
-            { className: 'form-control', name: 'driver', value: this.state.driver.id,
-              onChange: this.handleDriverChange },
-            '  ',
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'option',
-              { value: null },
-              'Select a Driver...'
-            ),
-            this.props.drivers.map(renderSelectList),
-            '  '
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'btn btn-success', type: 'submit', value: 'Add to database' })
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'btn btn-success', type: 'submit', value: 'Add to Database' })
         )
       );
     }
@@ -41520,10 +41516,8 @@ var AddDuckFedForm = function (_React$Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 AddDuckFedForm.propTypes = {
+  food_category: __WEBPACK_IMPORTED_MODULE_1_prop_types__["array"],
 
-  makes: __WEBPACK_IMPORTED_MODULE_1_prop_types__["array"],
-  models: __WEBPACK_IMPORTED_MODULE_1_prop_types__["array"],
-  drivers: __WEBPACK_IMPORTED_MODULE_1_prop_types__["array"],
   onSubmit: __WEBPACK_IMPORTED_MODULE_1_prop_types__["func"]
 };
 
@@ -41551,47 +41545,47 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var Vehicles = function (_React$Component) {
-  _inherits(Vehicles, _React$Component);
+var FedInfo = function (_React$Component) {
+  _inherits(FedInfo, _React$Component);
 
-  function Vehicles() {
-    _classCallCheck(this, Vehicles);
+  function FedInfo() {
+    _classCallCheck(this, FedInfo);
 
-    return _possibleConstructorReturn(this, (Vehicles.__proto__ || Object.getPrototypeOf(Vehicles)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (FedInfo.__proto__ || Object.getPrototypeOf(FedInfo)).apply(this, arguments));
   }
 
-  _createClass(Vehicles, [{
+  _createClass(FedInfo, [{
     key: 'render',
     value: function render() {
-      function renderVehicleRow(vehicle) {
+      function renderFedInfoRow(fedinfo) {
 
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'tr',
-          { key: vehicle.id },
+          { key: fedinfo.id },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'td',
             null,
-            vehicle.id
+            fedinfo.id
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'td',
             null,
-            vehicle.name
+            fedinfo.loc
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'td',
             null,
-            vehicle.make.name
+            fedinfo.food
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'td',
             null,
-            vehicle.model.name
+            fedinfo.numberofDuck
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'td',
             null,
-            vehicle.driver.name
+            fedinfo.foodWeight
           )
         );
       }
@@ -41616,43 +41610,39 @@ var Vehicles = function (_React$Component) {
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'th',
                 null,
-                'Name'
+                'Loc'
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'th',
                 null,
-                'Make'
+                'Food'
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'th',
                 null,
-                'Model'
+                'Duck numbers'
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'th',
                 null,
-                'Driver'
+                'Food Weight'
               )
             )
           ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'tbody',
-            null,
-            this.props.vehicles.map(renderVehicleRow)
-          )
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('tbody', null)
         )
       );
     }
   }]);
 
-  return Vehicles;
+  return FedInfo;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
-Vehicles.propTypes = {
-  vehicles: __WEBPACK_IMPORTED_MODULE_2_prop_types__["array"]
+FedInfo.propTypes = {
+  fedInfo: __WEBPACK_IMPORTED_MODULE_2_prop_types__["array"]
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Vehicles);
+/* harmony default export */ __webpack_exports__["a"] = (FedInfo);
 
 /***/ }),
 /* 342 */,
@@ -41689,7 +41679,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Vehicles__ = __webpack_require__(341);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__FedInfo__ = __webpack_require__(341);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AddDuckFedForm__ = __webpack_require__(340);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_whatwg_fetch__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_whatwg_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_whatwg_fetch__);
@@ -41717,25 +41707,25 @@ var Garage = function (_React$Component) {
 
     _this.submitNewVehicle = function (vehicle) {
       console.log('submitNewVehicle...');
-      fetch('/vehicle', {
+      fetch('/fedduckinfo', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(vehicle)
       }).then(function (r) {
         return r.json();
       }).then(function (json) {
-        var vehicles = _this.state.vehicles;
+        var fedinfo = _this.state.fedinfo;
         vehicles.push({ id: json.id, name: json.name, make: json.make, model: json.model, driver: json.driver });
-        _this.setState({ vehicles: vehicles });
+        _this.setState({ fedinfo: fedinfo });
       }).catch(function (ex) {
-        return console.error('Unable to save vehicle', ex);
+        return console.error('Unable to save fed info', ex);
       });
     };
 
     _this.state = {
-      vehicles: [],
+      fedinfo: [],
       makes: [],
-      models: [],
+      food_catogary: [],
       drivers: []
     };
     return _this;
@@ -41746,10 +41736,10 @@ var Garage = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      fetch('/vehicle').then(function (r) {
+      fetch('/fedduckinfo').then(function (r) {
         return r.json();
       }).then(function (json) {
-        return _this2.setState({ vehicles: json });
+        return _this2.setState({ fedinfo: json });
       }).catch(function (error) {
         return console.error('Error retrieving vehicles: ' + error);
       });
@@ -41762,10 +41752,10 @@ var Garage = function (_React$Component) {
         return console.error('Error retrieving makes: ' + error);
       });
 
-      fetch('/model').then(function (r) {
+      fetch('/foodcatogary').then(function (r) {
         return r.json();
       }).then(function (json) {
-        return _this2.setState({ models: json });
+        return _this2.setState({ food_catogary: json });
       }).catch(function (error) {
         return console.error('Error retrieving models ' + error);
       });
@@ -41782,17 +41772,17 @@ var Garage = function (_React$Component) {
     key: 'render',
     value: function render() {
       var _state = this.state,
-          vehicles = _state.vehicles,
+          fedinfo = _state.fedinfo,
           makes = _state.makes,
-          models = _state.models,
+          food_catogary = _state.food_catogary,
           drivers = _state.drivers;
 
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddDuckFedForm__["a" /* default */], { onSubmit: this.submitNewVehicle, makes: makes, models: models, drivers: drivers }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Vehicles__["a" /* default */], { vehicles: vehicles })
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddDuckFedForm__["a" /* default */], { onSubmit: this.submitNewVehicle, makes: makes, food_catogary: food_catogary, drivers: drivers }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__FedInfo__["a" /* default */], { fed: fedinfo })
       );
     }
   }]);

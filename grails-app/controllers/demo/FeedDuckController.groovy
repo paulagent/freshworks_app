@@ -1,5 +1,10 @@
 package demo
 
-class GarageController {
+class FeedDuckController {
+
+
     def index() { }
+
+
+
 }

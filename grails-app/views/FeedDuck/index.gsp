@@ -9,8 +9,8 @@
 
 <div id="content" role="main">
     <section class="row colset-2-its">
-        <div id="garage"></div>
-        <asset:javascript src="bundle-garage.js" />
+        <div id="FeedDuck"></div>
+        <asset:javascript src="bundle-feedduck.js" />
     </section>
 </div>
 
