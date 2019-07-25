@@ -2,8 +2,8 @@ package demo
 
 import grails.rest.Resource
 
-@Resource(uri = '/foodcatogary')
-class Food_Catogary {
+@Resource(uri = '/foodcategary')
+class FoodCategary {
 
     String name
 

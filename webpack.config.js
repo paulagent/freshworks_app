@@ -6,7 +6,9 @@ module.exports = {
 
     index: './src/main/webapp/index.js',
 
-    feedduck: './src/main/webapp/app/FeedDuck.js' // <2>
+    feedduck: './src/main/webapp/app/FeedDuck.js' ,// <2>
+
+    addFeedInfo: './src/main/webapp/app/AddDuckFeedForm.js'
   },
   //end::garageEntry[]
   //tag::outputSection[]

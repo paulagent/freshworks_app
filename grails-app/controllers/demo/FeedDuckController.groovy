@@ -7,4 +7,10 @@ class FeedDuckController {
 
 
 
+  def  save() {
+
+
+
+  }
+
 }

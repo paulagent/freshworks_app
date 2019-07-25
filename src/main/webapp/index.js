@@ -6,6 +6,10 @@ import './css/grails.css';
 import './css/main.css';
 
 ReactDOM.render(
+
+
+
+
   <App />,
   document.getElementById('root')
 );

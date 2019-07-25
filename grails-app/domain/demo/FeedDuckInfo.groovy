@@ -9,19 +9,17 @@ import java.util.Date
 class FeedDuckInfo {
 
 
-    Date date
+    Date feedtime
 
     String loc
 
-    Integer numberofDuck
+    Integer numberOfDucks
 
-    Integer foodWeight
+    Integer weightOfFood
 
-    Food_Catogary food_cat
+    String food_category
 
-    String food;
-
-
+    String food
 
 
 

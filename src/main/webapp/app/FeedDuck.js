@@ -10,10 +10,10 @@ class FeedDuck extends React.Component {
     super();
 
     this.state = {
-      feedinfo: [],
-      makes: [],
-      food_catogary: [],
-      drivers: []
+
+      feedinfo: []
+
+
     }
   }
 
@@ -23,20 +23,14 @@ class FeedDuck extends React.Component {
       .then(json => this.setState({feedinfo: json}))
       .catch(error => console.error('Error retrieving vehicles: ' + error));
 
-    fetch('/make')
-      .then(r => r.json())
-      .then(json => this.setState({makes: json}))
-      .catch(error => console.error('Error retrieving makes: ' + error));
+
 
     fetch('/foodcatogary')
       .then(r => r.json())
       .then(json => this.setState({food_catogary: json}))
       .catch(error => console.error('Error retrieving models ' + error));
 
-    fetch('/driver')
-      .then(r => r.json())
-      .then(json => this.setState({drivers: json}))
-      .catch(error => console.error('Error retrieving drivers: ' + error));
+
 
   }
 
@@ -45,11 +39,11 @@ class FeedDuck extends React.Component {
     fetch('/feedduckinfo', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(vehicle)
+      body: JSON.stringify(feedinfo)
     }).then(r => r.json())
       .then(json => {
         let feedinfo = this.state.feedinfo;
-        vehicles.push({id: json.id, name: json.name, make: json.make, model: json.model, driver: json.driver});
+        feedinfo.push({id: json.id, name: json.name});
         this.setState({feedinfo});
       })
       .catch(ex => console.error('Unable to save feed info', ex));
@@ -57,14 +51,12 @@ class FeedDuck extends React.Component {
 
 
   render() {
-    const {feedinfo, makes, food_catogary, drivers} = this.state;
+    const {feedinfo} = this.state;
 
-    return <div>
-      <AddDuckFeedForm onSubmit={this.submitNewFeedInfo} makes={makes} food_catogary={food_catogary} drivers={drivers}/>
+   return <div>
+         <AddDuckFeedForm onSubmit={this.submitNewFeedInfo}  />
 
-
-      <FeedInfo feed={feedinfo} />
-    </div>;
+       </div>;
   }
 }
 
