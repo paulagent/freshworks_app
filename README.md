@@ -44,6 +44,17 @@ CREATE TABLE feed_duck_info
 
 At the end, the total hours for this project is about 12 hours. Coding part is about 6 hours. The configration cloud env is 6 hours so. 
 
+Todo List 
+
+Add login page 
+
+allow user input location based on latitude And Longitude 
+
+admin page allow owner dump data to other format, like csv or txt for analysis purpose
+
+
+
+
 
 
 
