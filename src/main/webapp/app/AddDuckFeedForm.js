@@ -8,10 +8,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import ReactDOM from 'react-dom';
 
+import {Grid, Col, Row} from 'react-bootstrap';
+
 import axios from 'axios';
 
 import { Link } from 'react-router-dom';
-
 
 class AddDuckFeedForm extends React.Component {
 
@@ -28,28 +29,8 @@ class AddDuckFeedForm extends React.Component {
       };
   }
 
-
-/*
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    const { feedtime, loc, food_category, food, numberOfDucks, weightOfFood } = this.state;
-
-    axios.post('http://localhost:8090/feedduckinfo', { feedtime, loc, food, food_category, numberOfDucks,weightOfFood })
-      .then((result) => {
-        this.props.history.push("/")
-      });
-  }
-*/
-
-
-
-
-
-
-
   handleSubmit = (event) => {
+
     event.preventDefault();
 
     const { feedtime,loc, food, food_category, numberOfDucks,weightOfFood} = this.state;
@@ -83,86 +64,86 @@ class AddDuckFeedForm extends React.Component {
     };
 
   handleDateChange = (date) => {
-    this.setState({
-      feedtime: date
-    });
+    this.setState({  feedtime: date });
   } ;
 
   render() {
+    return(
+        <div>
+            <h1>Please add a new record of Duck feeding information.</h1>
+            <form className="form form-inline" onSubmit={this.handleSubmit}>
+                <br/>
+            <Grid>
+                <Row>
+                    <Col><label>What time did you feed ducks?</label></Col>
+                    <Col><DatePicker
+                            selected={this.state.feedtime}
+                            name="feedtime"
+                            onChange={this.handleDateChange}
+                            showTimeSelect
+                            timeFormat="HH:mm"
+                            timeIntervals={15}
+                            dateFormat="MMMM d, yyyy h:mm aa"
+                            timeCaption="time"/>
+                     </Col>
+                </Row>
 
-  return(
-      <div>
-        <h1>Add a new Duck feed info:</h1>
+                 <Row>
+                    <Col><label>Where is your location?</label></Col>
+                    <Col>
+                        <input className="form-control" name="loc" type="text" value={ this.state.loc } onChange={ this.handleLocChange }/>
+                    </Col>
+                </Row>
 
-        <form className="form form-inline" onSubmit={this.handleSubmit}  >
-        <br/>
+                <Row>
+                    <Col><label>Which food did you feed to ducks?</label></Col>
+                    <Col>
+                        <input className="form-control" name="food" type="text" value={ this.state.food } onChange={ this.handleFoodChange }/>
+                    </Col>
+                </Row>
 
-<label>Date to fed Duck</label>
+                <Row>
+                    <Col><label>What kind of food did you feed to ducks?</label></Col>
+                    <Col>
+                        <input className="form-control"
+                               name="food_category"
+                               type="text"
+                               value={this.state.food_category}
+                               onChange={this.handleFoodCatChange}/>
+                    </Col>
+                </Row>
 
-       <DatePicker
-        selected={this.state.feedtime}
-        name="feedtime"
-        onChange={this.handledDateChange}
-        showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={15}
-            dateFormat="MMMM d, yyyy h:mm aa"
-            timeCaption="time" />
+                <Row>
+                    <Col><label>How many ducks did you feed?</label></Col>
+                    <Col>
+                        <input name="numberOfDucks"
+                               type="number"
+                               value={this.state.numberOfDucks}
+                               onChange={this.handleDuckNumberChange}/>
+                    </Col>
+                </Row>
 
+                <Row>
+                    <Col><label>How many food you did feed to ducks?</label></Col>
+                    <Col>
+                        <input name="weightOfFood"
+                               type="number"
+                               value={this.state.weightOfFood}
+                               onChange={this.handleFoodWeightChange}/>
+                    </Col>
+                </Row>
 
-<br/>
-<br/>
-  <label>Your location</label>
-   <input className="form-control" name="loc" type="text" value={ this.state.loc } onChange={ this.handleLocChange } />
-
-<br/>
-<br/>
-     <label>what  of food fed ducks </label>
-     <input className="form-control" name="food" type="text" value={ this.state.food } onChange={ this.handleFoodChange } />
-
-
-        <br/>
-        <br/>
-                <label>what kind  of food feed ducks </label>
-      <input className="form-control" name="food_category" type="text"
-      value={this.state.food_category}  onChange={this.handleFoodCatChange} />
-
-
-  <br/>
-  <br/>
-               <label>
-                Number of ducks:
-                  <input
-                  name="numberOfDucks"
-                  type="number"
-                  value={this.state.numberOfDucks}
-                  onChange={this.handleDuckNumberChange} />
-              </label>
-<br/>
-<br/>
-
-              <label>
-                how many food feed to ducks
-                <input
-                  name="weightOfFood"
-                  type="number"
-                  value={this.state.weightOfFood}
-                  onChange={this.handleFoodWeightChange} />
-              </label>
-
-
-          <input className="btn btn-success"  type="submit" value="Add to Database" />
+            </Grid>
+            <br/>
+            <button className="btn btn-success" type="submit">Add Record</button>
         </form>
       </div>
     );
-
   }
 }
 
 AddDuckFeedForm.propTypes = {
-
-
-  onSubmit: func
+    onSubmit: func
 };
 
 //ReactDOM.render(<AddFeedDuckInfo />, document.getElementById('AddFeedDuckInfo'));

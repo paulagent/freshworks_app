@@ -23,6 +23,14 @@ class FeedDuckInfo {
 
 
 
+    static constraints = {
+        feedtime blank:false
+        loc blank:false
+        numberOfDucks blank:false
+        weightOfFood blank:false
+        food_category blank:false
+        food blank:false
+    }
 
 
 }

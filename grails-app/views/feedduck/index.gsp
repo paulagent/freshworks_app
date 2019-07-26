@@ -9,7 +9,7 @@
 
 <div id="content" role="main">
     <section class="row colset-2-its">
-        <div id="FeedDuck"></div>
+        <div id="feedduck"></div>
         <asset:javascript src="bundle-feedduck.js" />
     </section>
 </div>

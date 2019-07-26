@@ -20,15 +20,12 @@ class FeedDuck extends React.Component {
   componentDidMount() {
     fetch('/feedduckinfo')
       .then(r => r.json())
-      .then(json => this.setState({feedinfo: json}))
-      .catch(error => console.error('Error retrieving vehicles: ' + error));
+      .then(json => {this.setState({feedinfo: json});
 
 
-
-    fetch('/foodcatogary')
-      .then(r => r.json())
-      .then(json => this.setState({food_catogary: json}))
-      .catch(error => console.error('Error retrieving models ' + error));
+      console.log('get info...' +JSON.stringify(json) ); }
+      )
+      .catch(error => console.error('Error retrieving duck feed info: ' + error));
 
 
 
@@ -45,6 +42,7 @@ class FeedDuck extends React.Component {
         let feedinfo = this.state.feedinfo;
         feedinfo.push({id: json.id, name: json.name});
         this.setState({feedinfo});
+         console.log('submitNewFeedInfo...'+ JSON.stringify(json));
       })
       .catch(ex => console.error('Unable to save feed info', ex));
   };
@@ -61,4 +59,5 @@ class FeedDuck extends React.Component {
 }
 
 
-ReactDOM.render(<FeedDuck />, document.getElementById('FeedDuck'));
+ReactDOM.render(<FeedDuck />, document.getElementById('feedduck'));
+//export default FeedDuck;
