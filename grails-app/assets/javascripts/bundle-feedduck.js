@@ -13348,6 +13348,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+function validate(loc, food, food_category, numberOfDucks, weightOfFood) {
+  // true means invalid, so our conditions got reversed
+  return {
+    loc: loc.length === 0,
+    password: password.length === 0
+  };
+}
+
 var AddDuckFeedForm = function (_React$Component) {
   _inherits(AddDuckFeedForm, _React$Component);
 
@@ -13384,7 +13392,7 @@ var AddDuckFeedForm = function (_React$Component) {
       //<4>
 
       _this.setState({ combineloc: event.target.value });
-      _this.setState({ loc: _this.state.country + _this.state.region + _this.state.combineloc });
+      _this.setState({ loc: _this.state.country + ':' + _this.state.region + ':' + _this.state.combineloc });
     };
 
     _this.handleFoodChange = function (event) {
@@ -13404,7 +13412,13 @@ var AddDuckFeedForm = function (_React$Component) {
 
     _this.handleDuckNumberChange = function (event) {
       //<4>
-      _this.setState({ numberOfDucks: event.target.value });
+
+      var regex = /^[0-9\b]+$/;
+      var value = event.target.value;
+      if (value === '' || regex.test(value)) {
+        _this.setState({ numberOfDucks: value });
+      }
+      //  this.setState({ numberOfDucks: event.target.value });
     };
 
     _this.handleDateChange = function (date) {
@@ -13465,7 +13479,6 @@ var AddDuckFeedForm = function (_React$Component) {
                   'What time did you feed ducks?'
                 )
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["d" /* Col */],
                 null,
@@ -13475,11 +13488,13 @@ var AddDuckFeedForm = function (_React$Component) {
                   onChange: this.handleDateChange,
                   showTimeSelect: true,
                   timeFormat: 'HH:mm',
+                  readOnly: true,
                   timeIntervals: 15,
                   dateFormat: 'MMMM d, yyyy h:mm aa',
                   timeCaption: 'time' })
               )
             ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["c" /* Row */],
               null,
@@ -13492,7 +13507,6 @@ var AddDuckFeedForm = function (_React$Component) {
                   'Where is your location?'
                 )
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["d" /* Col */],
                 null,
@@ -13516,6 +13530,7 @@ var AddDuckFeedForm = function (_React$Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'form-control', name: 'combineloc', type: 'text', value: this.state.combineloc, onChange: this.handleLocChange })
               )
             ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["c" /* Row */],
               null,
@@ -13528,13 +13543,13 @@ var AddDuckFeedForm = function (_React$Component) {
                   'Which food did you feed to ducks?'
                 )
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["d" /* Col */],
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'form-control', name: 'food', type: 'text', value: this.state.food, onChange: this.handleFoodChange })
               )
             ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["c" /* Row */],
               null,
@@ -13547,7 +13562,6 @@ var AddDuckFeedForm = function (_React$Component) {
                   'What kind of food did you feed to ducks?'
                 )
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["d" /* Col */],
                 null,
@@ -13558,6 +13572,7 @@ var AddDuckFeedForm = function (_React$Component) {
                   onChange: this.handleFoodCatChange })
               )
             ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["c" /* Row */],
               null,
@@ -13579,6 +13594,7 @@ var AddDuckFeedForm = function (_React$Component) {
                   onChange: this.handleDuckNumberChange })
               )
             ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["c" /* Row */],
               null,
@@ -13589,9 +13605,9 @@ var AddDuckFeedForm = function (_React$Component) {
                   'label',
                   null,
                   'How many food you did feed to ducks?'
-                )
+                ),
+                ' kg'
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 __WEBPACK_IMPORTED_MODULE_5_react_bootstrap__["d" /* Col */],
                 null,
@@ -46313,6 +46329,7 @@ var FeedDuck = function (_React$Component) {
         feedinfo.push({ id: json.id, name: json.name });
         _this.setState({ feedinfo: feedinfo });
         console.log('submitNewFeedInfo...' + JSON.stringify(json));
+        alert("successful add record to database, thanks");
       }).catch(function (ex) {
         return console.error('Unable to save feed info', ex);
       });

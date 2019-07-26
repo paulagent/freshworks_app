@@ -15,6 +15,7 @@ import axios from 'axios';
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import { Link } from 'react-router-dom';
 
+
 class AddDuckFeedForm extends React.Component {
 
   constructor(props) {
@@ -44,7 +45,7 @@ class AddDuckFeedForm extends React.Component {
       return;
     }
     this.props.onSubmit( {feedtime, loc, food, food_category,numberOfDucks,weightOfFood} );
-    this.setState({ feedtime :'', loc: '', food: '', food_category: '', numberOfDucks: '', weightOfFood:'',country:''});
+    this.setState({ feedtime :'', combineloc: '', food: '', food_category: '', numberOfDucks: '', weightOfFood:'',country:''});
   };
 
   handleLocChange = (event) => { //<4>
@@ -66,7 +67,13 @@ class AddDuckFeedForm extends React.Component {
   };
 
   handleDuckNumberChange = (event) => { //<4>
-      this.setState({ numberOfDucks: event.target.value });
+
+   const regex = /^[0-9\b]+$/;
+        const value = event.target.value;
+        if (value === '' || regex.test(value)) {
+           this.setState({ numberOfDucks : value })
+        }
+    //  this.setState({ numberOfDucks: event.target.value });
     };
 
   handleDateChange = (date) => {
@@ -92,22 +99,22 @@ class AddDuckFeedForm extends React.Component {
             <Grid>
                 <Row>
                     <Col><label>What time did you feed ducks?</label></Col>
-                    <br/>
                     <Col><DatePicker
                             selected={this.state.feedtime}
                             name="feedtime"
                             onChange={this.handleDateChange}
                             showTimeSelect
                             timeFormat="HH:mm"
+                            readOnly = {true}
                             timeIntervals={15}
                             dateFormat="MMMM d, yyyy h:mm aa"
                             timeCaption="time"/>
                      </Col>
                 </Row>
-
+                     <br/>
                  <Row>
                     <Col><label>Where is your location?</label></Col>
-                    <br/>
+
                     <Col> <CountryDropdown
                                    value={this.state.country}
                                    onChange={(val) =>this.selectCountry(val) } />
@@ -123,18 +130,16 @@ class AddDuckFeedForm extends React.Component {
                         <input className="form-control" name="combineloc" type="text" value={ this.state.combineloc } onChange={ this.handleLocChange }/>
                     </Col>
                 </Row>
-
-                <Row>
-                    <Col><label>Which food did you feed to ducks?</label></Col>
                     <br/>
+                <Row>
+                    <Col><label>Which food did you feed to ducks? </label></Col>
                     <Col>
                         <input className="form-control" name="food" type="text" value={ this.state.food } onChange={ this.handleFoodChange }/>
                     </Col>
                 </Row>
-
+                     <br/>
                 <Row>
-                    <Col><label>What kind of food did you feed to ducks?</label></Col>
-                    <br/>
+                    <Col><label>What kind of food did you feed to ducks? (Bread, Rice etc)</label></Col>
                     <Col>
                         <input className="form-control"
                                name="food_category"
@@ -143,7 +148,7 @@ class AddDuckFeedForm extends React.Component {
                                onChange={this.handleFoodCatChange}/>
                     </Col>
                 </Row>
-
+                     <br/>
                 <Row>
                     <Col><label>How many ducks did you feed?</label></Col>
                     <Col>
@@ -153,10 +158,9 @@ class AddDuckFeedForm extends React.Component {
                                onChange={this.handleDuckNumberChange}/>
                     </Col>
                 </Row>
-
+                     <br/>
                 <Row>
-                    <Col><label>How many food you did feed to ducks?</label></Col>
-                    <br/>
+                    <Col><label>How many food you did feed to ducks?</label> kg</Col>
                     <Col>
                         <input name="weightOfFood"
                                type="number"

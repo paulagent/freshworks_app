@@ -37,6 +37,7 @@ class FeedDuck extends React.Component {
         feedinfo.push({id: json.id, name: json.name});
         this.setState({feedinfo});
          console.log('submitNewFeedInfo...'+ JSON.stringify(json));
+         alert("successful add record to database, thanks");
       })
       .catch(ex => console.error('Unable to save feed info', ex));
   };
