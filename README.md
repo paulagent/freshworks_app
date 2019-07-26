@@ -42,7 +42,7 @@ CREATE TABLE feed_duck_info
  
 );
 
-
+At the end, the total hours for this project is about 12 hours. Coding part is about 6 hours. The configration cloud env is 6 hours so. 
 
 
 
