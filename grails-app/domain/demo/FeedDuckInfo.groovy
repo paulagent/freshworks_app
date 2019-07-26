@@ -26,7 +26,7 @@ class FeedDuckInfo {
     static constraints = {
         feedtime blank:false
         loc blank:false
-        numberOfDucks blank:false
+        numberOfDucks blank:false,min: 1  //at list 1 duck
         weightOfFood blank:false
         food_category blank:false
         food blank:false

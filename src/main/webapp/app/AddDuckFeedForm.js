@@ -12,6 +12,7 @@ import {Grid, Col, Row} from 'react-bootstrap';
 
 import axios from 'axios';
 
+import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import { Link } from 'react-router-dom';
 
 class AddDuckFeedForm extends React.Component {
@@ -20,12 +21,15 @@ class AddDuckFeedForm extends React.Component {
 
     super(props);
     this.state = {
+      country :'',
+      region: '',
       feedtime: new Date(),
       loc: '',
       food: '',
       food_category: '',
       numberOfDucks: 10,
-      weightOfFood : 0.5
+      weightOfFood : 0.5,
+      combineloc:''
       };
   }
 
@@ -33,18 +37,20 @@ class AddDuckFeedForm extends React.Component {
 
     event.preventDefault();
 
-    const { feedtime,loc, food, food_category, numberOfDucks,weightOfFood} = this.state;
+    const { country, region, loc,feedtime,combineloc, food, food_category, numberOfDucks,weightOfFood} = this.state;
 
     if ( !feedtime || !loc || !food || !food_category || !numberOfDucks || !weightOfFood) {
       console.warn("missing required field!");
       return;
     }
-    this.props.onSubmit( {feedtime, loc, food, food_category,numberOfDucks,weightOfFood} ); // <3>
-    this.setState({ feedtime :'', loc: '', food: '', food_category: '', numberOfDucks: '', weightOfFood:''});
+    this.props.onSubmit( {feedtime, loc, food, food_category,numberOfDucks,weightOfFood} );
+    this.setState({ feedtime :'', loc: '', food: '', food_category: '', numberOfDucks: '', weightOfFood:'',country:''});
   };
 
   handleLocChange = (event) => { //<4>
-    this.setState({ loc: event.target.value });
+
+    this.setState({ combineloc: event.target.value  });
+    this.setState( {loc: this.state.country + ':' + this.state.region + ':' + this.state.combineloc}  );
   };
 
   handleFoodChange = (event) => { //<4>
@@ -67,6 +73,16 @@ class AddDuckFeedForm extends React.Component {
     this.setState({  feedtime: date });
   } ;
 
+
+  selectCountry = (val) => {
+    this.setState({ country: val });
+  };
+
+  selectRegion = (val ) => {
+    this.setState({ region: val });
+  };
+
+
   render() {
     return(
         <div>
@@ -76,6 +92,7 @@ class AddDuckFeedForm extends React.Component {
             <Grid>
                 <Row>
                     <Col><label>What time did you feed ducks?</label></Col>
+                    <br/>
                     <Col><DatePicker
                             selected={this.state.feedtime}
                             name="feedtime"
@@ -90,13 +107,26 @@ class AddDuckFeedForm extends React.Component {
 
                  <Row>
                     <Col><label>Where is your location?</label></Col>
+                    <br/>
+                    <Col> <CountryDropdown
+                                   value={this.state.country}
+                                   onChange={(val) =>this.selectCountry(val) } />
+
+                                 <RegionDropdown
+                                   disableWhenEmpty={true}
+                                   country={this.state.country}
+                                   value={this.state.region}
+                                   onChange={(val) => this.selectRegion(val)} />
+                    </Col>
+
                     <Col>
-                        <input className="form-control" name="loc" type="text" value={ this.state.loc } onChange={ this.handleLocChange }/>
+                        <input className="form-control" name="combineloc" type="text" value={ this.state.combineloc } onChange={ this.handleLocChange }/>
                     </Col>
                 </Row>
 
                 <Row>
                     <Col><label>Which food did you feed to ducks?</label></Col>
+                    <br/>
                     <Col>
                         <input className="form-control" name="food" type="text" value={ this.state.food } onChange={ this.handleFoodChange }/>
                     </Col>
@@ -104,6 +134,7 @@ class AddDuckFeedForm extends React.Component {
 
                 <Row>
                     <Col><label>What kind of food did you feed to ducks?</label></Col>
+                    <br/>
                     <Col>
                         <input className="form-control"
                                name="food_category"
@@ -125,6 +156,7 @@ class AddDuckFeedForm extends React.Component {
 
                 <Row>
                     <Col><label>How many food you did feed to ducks?</label></Col>
+                    <br/>
                     <Col>
                         <input name="weightOfFood"
                                type="number"

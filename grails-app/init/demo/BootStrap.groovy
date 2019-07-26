@@ -14,7 +14,7 @@ class BootStrap {
        // new Vehicle(name: "Economy", driver: driver1, make: nissan, FoodCategary: bread).save()
        // new Vehicle(name: "Minivan", driver: driver2, make: ford, FoodCategary: corn).save()
 
-
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
         new FeedDuckInfo(date: "2019:07:22", loc: "NY", numberofDuck: 1, foodWeight: 1, food_category: "rice", food:"bread").save()
 
     }

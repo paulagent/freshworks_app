@@ -52,5 +52,5 @@ class FeedDuck extends React.Component {
   }
 }
 
-ReactDOM.render(<FeedDuck />, document.getElementById('feedduck'));
-//export default FeedDuck;
+//ReactDOM.render(<FeedDuck />, document.getElementById('feedduck'));
+export default FeedDuck;
