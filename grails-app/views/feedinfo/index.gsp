@@ -10,8 +10,8 @@
 <div id="content" role="main">
     <section class="row colset-2-its">
 
-        <div id="AddFeedDuckInfo"></div>
-        <asset:javascript src="bundle-addFeedInfo.js" />
+        <div id="feedinfo"></div>
+        <asset:javascript src="bundle-feedinfo.js" />
     </section>
 </div>
 

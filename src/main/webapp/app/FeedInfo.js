@@ -4,6 +4,9 @@ import {array} from 'prop-types';
 
 class FeedInfo extends React.Component {
 
+
+
+
   render() {
     function renderFeedInfoRow(feedinfo) {
 

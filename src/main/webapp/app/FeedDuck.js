@@ -12,8 +12,6 @@ class FeedDuck extends React.Component {
     this.state = {
 
       feedinfo: []
-
-
     }
   }
 
@@ -21,13 +19,9 @@ class FeedDuck extends React.Component {
     fetch('/feedduckinfo')
       .then(r => r.json())
       .then(json => {this.setState({feedinfo: json});
-
-
       console.log('get info...' +JSON.stringify(json) ); }
       )
       .catch(error => console.error('Error retrieving duck feed info: ' + error));
-
-
 
   }
 
@@ -57,7 +51,6 @@ class FeedDuck extends React.Component {
        </div>;
   }
 }
-
 
 ReactDOM.render(<FeedDuck />, document.getElementById('feedduck'));
 //export default FeedDuck;

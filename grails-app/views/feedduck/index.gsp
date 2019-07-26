@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Garage</title>
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
+    <title>Feed Duck Input</title>
+    <asset:link rel="icon" href="icon-vector-illustration.jpg" type="image/x-ico" />
 </head>
 <body>
 

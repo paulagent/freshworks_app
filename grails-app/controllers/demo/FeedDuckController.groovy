@@ -7,15 +7,15 @@ class FeedDuckController {
 
 
 
-  def  save() {
+  def  save(FeedDuckInfo info) {
 
-      if (player == null) {
+      if (info == null) {
           render status: HttpStatus.NOT_FOUND
           return
       }
 
-      if (player.hasErrors()) {
-          respond player.errors, view: 'create'
+      if (info.hasErrors()) {
+          respond info.errors, view: 'index'
           return
       }
 
