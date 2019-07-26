@@ -25,7 +25,22 @@ when users input information and click button to save data to backend. it will d
 Diagram Chart link
 https://drive.google.com/file/d/10028gsC-RSrXMD5WsogRPyRO2bjuWBtw/view?usp=sharing
 
+Database table defintion
+CREATE TABLE feed_duck_info
+(
 
+| Name            | Type        | Constrains|
+| ---             |  ---        | ----      |
+| id              | bigint      | NOT NULL, |
+| version         | bigint      | NOT NULL, |
+| loc             | varchar(255)| NOT NULL, |
+| food            | varchar(255)| NOT NULL, |
+| number_of_ducks | integer     | NOT NULL, |
+| weight_of_food  | integer     | NOT NULL, |
+| food_category   | varchar(255)| NOT NULL, |
+| feedtime        | timestamp   | NOT NULL, |
+ 
+);
 
 
 
