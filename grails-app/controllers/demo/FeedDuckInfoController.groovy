@@ -1,6 +1,6 @@
 package demo
 
-class FeedDuckController {
+class FeedDuckInfoController {
 
 
     def index() { }
