@@ -6,7 +6,7 @@ class BootStrap {
         log.info "Loading database..."
 
 
-        def rice  = new  FoodCategary(name: "rice").save()
+        //def rice  = new  FoodCategary(name: "rice").save()
       //  def bread = new  FoodCategary(name: "bread").save()
      //   def corn  = new  FoodCategary(name: "corn").save()
 
